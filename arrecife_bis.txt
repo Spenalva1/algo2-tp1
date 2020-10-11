@@ -1,0 +1,10 @@
+Riolu;22;1;bermellon
+Bulbasaur;29;15;blanquirrojo
+Lanturn;50;2;bermellon
+Croagunk;50;76;plateado
+Feebas;18;79;blanquirrojo
+Dratini;18;73;naranja
+Scyther;42;21;violeta
+Geodude;19;49;blanquirrojo
+Ninjask;14;55;rojo
+Rampardos;42;66;salmon
