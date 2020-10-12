@@ -1,5 +1,4 @@
 Politoed;70;33;violeta
 Squirtle;43;75;azul
-Arceus;120;320;violeta
 Slowpoke;15;76;rosa
 Seaking;68;39;rojo
