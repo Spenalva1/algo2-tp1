@@ -106,13 +106,16 @@ acuario_t* crear_acuario(){
 int trasladar_pokemon(arrecife_t* arrecife, acuario_t* acuario, bool (*seleccionar_pokemon) (pokemon_t*), int cant_seleccion){
   int i = 0;
   int encontrados = 0;
-  while(i < arrecife->cantidad_pokemon){
+  bool suficientes = false;
+  while(i < arrecife->cantidad_pokemon && !suficientes){
     if((*seleccionar_pokemon)((arrecife->pokemon)+i))
       encontrados++;
+    if(encontrados > cant_seleccion)
+      suficientes = true;
     i++;
   }
 
-  if(encontrados <= cant_seleccion)
+  if(!suficientes)
     return ERROR;
 
   encontrados = 0;

@@ -79,19 +79,19 @@ int main(int argc, char *argv[]){
         return ERROR;
     }
 
-    trasladar_pokemon(arrecife, acuario, &es_magikarp, 1)
+    trasladar_pokemon(arrecife, acuario, &es_magikarp, 1);
     censar_arrecife(arrecife, &mostrar_pokemon);
 
-    trasladar_pokemon(arrecife, acuario, &es_veloz, 1)
+    trasladar_pokemon(arrecife, acuario, &es_veloz, 1);
     censar_arrecife(arrecife, &mostrar_pokemon);
 
-    trasladar_pokemon(arrecife, acuario, &es_pesado, 1)
+    trasladar_pokemon(arrecife, acuario, &es_pesado, 1);
     censar_arrecife(arrecife, &mostrar_pokemon);
 
-    trasladar_pokemon(arrecife, acuario, &es_violeta, 5)
+    trasladar_pokemon(arrecife, acuario, &es_violeta, 5);
     censar_arrecife(arrecife, &mostrar_pokemon);
 
-    trasladar_pokemon(arrecife, acuario, &nombre_empieza_con_S, 2)
+    trasladar_pokemon(arrecife, acuario, &nombre_empieza_con_S, 2);
     censar_arrecife(arrecife, &mostrar_pokemon);
 
     guardar_datos_acuario(acuario, RUTA_ACUARIO);
