@@ -113,7 +113,7 @@ int trasladar_pokemon(arrecife_t* arrecife, acuario_t* acuario, bool (*seleccion
   }
 
   if(encontrados <= cant_seleccion)
-    return SIN_ERROR;
+    return ERROR;
 
   encontrados = 0;
   i = 0;
