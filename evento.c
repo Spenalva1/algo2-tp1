@@ -79,24 +79,19 @@ int main(int argc, char *argv[]){
         return ERROR;
     }
 
-    if(trasladar_pokemon(arrecife, acuario, &es_magikarp, 1) == ERROR)
-        return ERROR;
+    trasladar_pokemon(arrecife, acuario, &es_magikarp, 1)
     censar_arrecife(arrecife, &mostrar_pokemon);
 
-    if(trasladar_pokemon(arrecife, acuario, &es_veloz, 1) == ERROR)
-        return ERROR;
+    trasladar_pokemon(arrecife, acuario, &es_veloz, 1)
     censar_arrecife(arrecife, &mostrar_pokemon);
 
-    if(trasladar_pokemon(arrecife, acuario, &es_pesado, 1) == ERROR)
-        return ERROR;
+    trasladar_pokemon(arrecife, acuario, &es_pesado, 1)
     censar_arrecife(arrecife, &mostrar_pokemon);
 
-    if(trasladar_pokemon(arrecife, acuario, &es_violeta, 5) == ERROR)
-        return ERROR;
+    trasladar_pokemon(arrecife, acuario, &es_violeta, 5)
     censar_arrecife(arrecife, &mostrar_pokemon);
 
-    if(trasladar_pokemon(arrecife, acuario, &nombre_empieza_con_S, 2) == ERROR)
-        return ERROR;
+    trasladar_pokemon(arrecife, acuario, &nombre_empieza_con_S, 2)
     censar_arrecife(arrecife, &mostrar_pokemon);
 
     guardar_datos_acuario(acuario, RUTA_ACUARIO);
@@ -104,16 +99,3 @@ int main(int argc, char *argv[]){
     liberar_arrecife(arrecife);
     liberar_acuario(acuario);
 }
-
-
-
-
-
-
-
-    // printf("\t%s - %s\n", pokemon->especie, MAGIKARP);
-
-    // printf("DIRECCION: %p\n", (void *)arrecife);
-// for(int i = 0; i < arrecife->cantidad_pokemon; i++){
-//         printf("pokemon %d: %s %d %d %s\n", i, arrecife->pokemon[i].especie, arrecife->pokemon[i].peso, arrecife->pokemon[i].velocidad, arrecife->pokemon[i].color);
-// }
