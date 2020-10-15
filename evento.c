@@ -79,19 +79,29 @@ int main(int argc, char *argv[]){
         return ERROR;
     }
 
-    trasladar_pokemon(arrecife, acuario, &es_magikarp, 1);
+    if(trasladar_pokemon(arrecife, acuario, &es_magikarp, 5) == ERROR){
+        printf("No se realizó el traslado 1\n");
+    }
     censar_arrecife(arrecife, &mostrar_pokemon);
 
-    trasladar_pokemon(arrecife, acuario, &es_veloz, 1);
+    if(trasladar_pokemon(arrecife, acuario, &es_veloz, 50) == ERROR){
+        printf("No se realizó el traslado 2\n");
+    }
     censar_arrecife(arrecife, &mostrar_pokemon);
 
-    trasladar_pokemon(arrecife, acuario, &es_pesado, 1);
+    if(trasladar_pokemon(arrecife, acuario, &es_pesado, 1) == ERROR){
+        printf("No se realizó el traslado 3\n");
+    }
     censar_arrecife(arrecife, &mostrar_pokemon);
 
-    trasladar_pokemon(arrecife, acuario, &es_violeta, 5);
+    if(trasladar_pokemon(arrecife, acuario, &es_violeta, 5) == ERROR){
+        printf("No se realizó el traslado 4\n");
+    }
     censar_arrecife(arrecife, &mostrar_pokemon);
 
-    trasladar_pokemon(arrecife, acuario, &nombre_empieza_con_S, 2);
+    if(trasladar_pokemon(arrecife, acuario, &nombre_empieza_con_S, 2) == ERROR){
+        printf("No se realizó el traslado 5\n");
+    }
     censar_arrecife(arrecife, &mostrar_pokemon);
 
     guardar_datos_acuario(acuario, RUTA_ACUARIO);

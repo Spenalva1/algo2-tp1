@@ -11,48 +11,55 @@
 
 /*
 * agrega el pokemon recibido por parametro en la direccion recibida en el puntero arrecife
+* retorna SIN_ERROR en caso de exito y ERROR en caso contrario.
 */
 int agregar_pokemon_a_arrecife(arrecife_t* arrecife, pokemon_t pokemon){
-    pokemon_t* nuevo_vector_pokemon;
-    (arrecife->cantidad_pokemon)++;
-    nuevo_vector_pokemon = realloc(arrecife->pokemon, sizeof(pokemon_t) * (size_t)arrecife->cantidad_pokemon);
-    
-    if(nuevo_vector_pokemon == NULL)
-      return ERROR;
-
-    arrecife->pokemon = nuevo_vector_pokemon;
-
-    *(arrecife->pokemon + arrecife->cantidad_pokemon - 1) = pokemon;
-    return SIN_ERROR;
+  pokemon_t* nuevo_vector_pokemon;
+  (arrecife->cantidad_pokemon)++;
+  nuevo_vector_pokemon = realloc(arrecife->pokemon, sizeof(pokemon_t) * (size_t)arrecife->cantidad_pokemon);
+  
+  if(nuevo_vector_pokemon == NULL){
+    (arrecife->cantidad_pokemon)--;
+    return ERROR;
+  }
+  arrecife->pokemon = nuevo_vector_pokemon;
+  *(arrecife->pokemon + arrecife->cantidad_pokemon - 1) = pokemon;
+  return SIN_ERROR;
 }
 
 /*
 * agrega el pokemon recibido por parametro en la direccion recibida en el puntero acuario
+* retorna SIN_ERROR en caso de exito y ERROR en caso contrario.
 */
 int agregar_pokemon_a_acuario(acuario_t* acuario, pokemon_t pokemon){
-    pokemon_t* nuevo_vector_pokemon;
-    (acuario->cantidad_pokemon)++;
-    nuevo_vector_pokemon = realloc(acuario->pokemon, sizeof(pokemon_t) * (size_t)acuario->cantidad_pokemon);
-    
-    if(nuevo_vector_pokemon == NULL)
-      return ERROR;
-
-    acuario->pokemon = nuevo_vector_pokemon;
-
-    *(acuario->pokemon + acuario->cantidad_pokemon - 1) = pokemon;
-    return SIN_ERROR;
+  pokemon_t* nuevo_vector_pokemon;
+  (acuario->cantidad_pokemon)++;
+  nuevo_vector_pokemon = realloc(acuario->pokemon, sizeof(pokemon_t) * (size_t)acuario->cantidad_pokemon);
+  
+  if(nuevo_vector_pokemon == NULL){
+    (acuario->cantidad_pokemon)--;
+    return ERROR;
+  }
+  acuario->pokemon = nuevo_vector_pokemon;
+  *(acuario->pokemon + acuario->cantidad_pokemon - 1) = pokemon;
+  return SIN_ERROR;
 }
 
 /*
 * quita el pokemon de la pocision i del vector de pokemon_t ubicado la direccion recibida en el puntero arrecife
+* retorna SIN_ERROR en caso de exito y ERROR en caso contrario.
 */
 int sacar_pokemon_de_arrecife(arrecife_t* arrecife, int i){
-  arrecife->pokemon[i] = *(arrecife->pokemon + arrecife->cantidad_pokemon - 1);
+  pokemon_t pokemon_aux = *(arrecife->pokemon + arrecife->cantidad_pokemon - 1);
   (arrecife->cantidad_pokemon)--;
   pokemon_t* nuevo_vector_pokemon = realloc(arrecife->pokemon, sizeof(pokemon_t) * (size_t)arrecife->cantidad_pokemon);
-  if(nuevo_vector_pokemon == NULL)
+  if(nuevo_vector_pokemon == NULL){
+    (arrecife->cantidad_pokemon)++;
     return ERROR;
+  }
   arrecife->pokemon = nuevo_vector_pokemon;
+  if(i < arrecife->cantidad_pokemon)
+    arrecife->pokemon[i] = pokemon_aux;
   return SIN_ERROR;
 }
 
@@ -108,10 +115,11 @@ int trasladar_pokemon(arrecife_t* arrecife, acuario_t* acuario, bool (*seleccion
   int encontrados = 0;
   bool suficientes = false;
   while(i < arrecife->cantidad_pokemon && !suficientes){
-    if((*seleccionar_pokemon)((arrecife->pokemon)+i))
+    if((*seleccionar_pokemon)((arrecife->pokemon)+i)){
       encontrados++;
-    if(encontrados > cant_seleccion)
-      suficientes = true;
+      if(encontrados > cant_seleccion)
+        suficientes = true;
+    }
     i++;
   }
 
@@ -128,18 +136,16 @@ int trasladar_pokemon(arrecife_t* arrecife, acuario_t* acuario, bool (*seleccion
       if(agregar_pokemon_a_acuario(acuario, arrecife->pokemon[i]) == ERROR)
         error = true;
 
-      sacar_pokemon_de_arrecife(arrecife, i);
+      if(sacar_pokemon_de_arrecife(arrecife, i) == ERROR)
+        error = true;
 
     }else{
       i++;
     }
   }
 
-  if(error){
-    liberar_arrecife(arrecife);
-    liberar_acuario(acuario);
+  if(error)
     return ERROR;
-  }
 
   return SIN_ERROR;
 }
