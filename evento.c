@@ -8,6 +8,7 @@
 #define VIOLETA "violeta"
 #define RUTA_ACUARIO "acuario.txt"
 #define ERROR -1
+#define SIN_ERROR 0
 #define PESO_DIVISOR 75
 #define VELOCIDAD_DIVISOR 60
 
@@ -65,6 +66,14 @@ void mostrar_nombre_pokemon(pokemon_t* pokemon){
     printf("\t- %s\n", pokemon->especie);
 }
 
+void mostrar_resultado_de_traslado(int resultado, int numero_de_traslado){
+    if(resultado == ERROR){
+        printf("No se pudo realizar el traslado %d\n", numero_de_traslado);
+    }else if (resultado == SIN_ERROR){
+        printf("Traslado %d realizado con exito!\n", numero_de_traslado);
+    }
+}
+
 
 int main(int argc, char *argv[]){
 
@@ -79,29 +88,19 @@ int main(int argc, char *argv[]){
         return ERROR;
     }
 
-    if(trasladar_pokemon(arrecife, acuario, &es_magikarp, 5) == ERROR){
-        printf("No se realizó el traslado 1\n");
-    }
+    mostrar_resultado_de_traslado(trasladar_pokemon(arrecife, acuario, &es_magikarp, 1), 1);
     censar_arrecife(arrecife, &mostrar_pokemon);
 
-    if(trasladar_pokemon(arrecife, acuario, &es_veloz, 50) == ERROR){
-        printf("No se realizó el traslado 2\n");
-    }
+    mostrar_resultado_de_traslado(trasladar_pokemon(arrecife, acuario, &es_veloz, 1), 2);
     censar_arrecife(arrecife, &mostrar_pokemon);
 
-    if(trasladar_pokemon(arrecife, acuario, &es_pesado, 1) == ERROR){
-        printf("No se realizó el traslado 3\n");
-    }
+    mostrar_resultado_de_traslado(trasladar_pokemon(arrecife, acuario, &es_pesado, 1), 3);
     censar_arrecife(arrecife, &mostrar_pokemon);
 
-    if(trasladar_pokemon(arrecife, acuario, &es_violeta, 5) == ERROR){
-        printf("No se realizó el traslado 4\n");
-    }
+    mostrar_resultado_de_traslado(trasladar_pokemon(arrecife, acuario, &es_violeta, 5), 4);
     censar_arrecife(arrecife, &mostrar_pokemon);
 
-    if(trasladar_pokemon(arrecife, acuario, &nombre_empieza_con_S, 2) == ERROR){
-        printf("No se realizó el traslado 5\n");
-    }
+    mostrar_resultado_de_traslado(trasladar_pokemon(arrecife, acuario, &nombre_empieza_con_S, 2), 5);
     censar_arrecife(arrecife, &mostrar_pokemon);
 
     guardar_datos_acuario(acuario, RUTA_ACUARIO);

@@ -151,11 +151,12 @@ int trasladar_pokemon(arrecife_t* arrecife, acuario_t* acuario, bool (*seleccion
 }
 
 void censar_arrecife(arrecife_t* arrecife, void (*mostrar_pokemon)(pokemon_t*)){
+  printf("------------------------------------------------------------------------------------------\n");
   printf("Pokemones restantes en el arrecife (%d):\n", arrecife->cantidad_pokemon);
   for(int i = 0; i < arrecife->cantidad_pokemon; i++){
     (*mostrar_pokemon)((arrecife->pokemon)+i);
   }
-  printf("---------------------------------------------------------\n");
+  printf("------------------------------------------------------------------------------------------\n");
 }
 
 int guardar_datos_acuario(acuario_t* acuario, const char* nombre_archivo){
