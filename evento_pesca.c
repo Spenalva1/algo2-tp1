@@ -47,6 +47,7 @@ int agregar_pokemon_a_acuario(acuario_t* acuario, pokemon_t pokemon){
 
 /*
 * quita el pokemon de la pocision i del vector de pokemon_t ubicado la direccion recibida en el puntero arrecife
+* i debe ser mayor que el valor entero ubicado en arrecife->cantidad_pokemon
 * retorna SIN_ERROR en caso de exito y ERROR en caso contrario.
 */
 int sacar_pokemon_de_arrecife(arrecife_t* arrecife, int i){

@@ -66,6 +66,10 @@ void mostrar_nombre_pokemon(pokemon_t* pokemon){
     printf("\t- %s\n", pokemon->especie);
 }
 
+/*
+*   Detalla en pantalla el resultado del traslado el cual sera un mensaje de exito si resultado es igual a SIN_ERROR y sera de fallo si resultado es igual a ERROR.
+*   numero_de_traslado representa el numero de traslado de pokemones realizado para indicarlo en pantalla
+*/
 void mostrar_resultado_de_traslado(int resultado, int numero_de_traslado){
     if(resultado == ERROR){
         printf("No se pudo realizar el traslado %d\n", numero_de_traslado);
