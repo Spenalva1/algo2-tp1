@@ -1,5 +1,6 @@
 - El trabajo consiste en crear un que contiene un puntero a pokemon que apunta a un arreglo de pokemones que representa a los pokemones que se encuentran en el arrecife. El programa recibe por parametro la ruta del archivo que contiene a los pokemones que pertenecerán al arrecife. Por otro lado se encuentra una estructura que representa a un acuario que, al igual que el arrecife, contiene un puntero con la ubicacion en memoria de un arreglo de pokemones. Luego existe la posibilidad de traspasar pokemones del arrecife al acuario, siempre y cuando cumplan una determinada condicion, por ejemplo, que su color sea violeta. luego de cada traspaso, se imprimirá en pantalla los pokemones restantes del arrecife. Por ultimo, se guardará en el archivo "acuario.txt" los pokemones que fueron llevados al acuario.
 
+- Creo un arrecife en memoria guardandome el puntero a su direccion. En dicho arrecife guardare
 - Para compilarlo se ingresa la siguiente linea en consola (en el directorio del trabajo):
 gcc *.c -Wall -Werror -Wconversion -std=c99 -o evento_pesca
 Y para ejecutarlo:

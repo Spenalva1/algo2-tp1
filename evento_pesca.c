@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#define FORMATO_POKEMON_LECTURA "%[^;];%i;%i;%[^\n]\n"
+#define FORMATO_POKEMON_LECTURA "%100[^;];%i;%i;%100[^\n]\n"
 #define FORMATO_POKEMON_ESCRITURA "%s;%i;%i;%s\n"
 #define CANT_A_LEER 4
 #define SIN_ERROR 0
@@ -32,10 +32,8 @@ int agregar_pokemon_a_arrecife(arrecife_t* arrecife, pokemon_t pokemon){
 * retorna SIN_ERROR en caso de exito y ERROR en caso contrario.
 */
 int agregar_pokemon_a_acuario(acuario_t* acuario, pokemon_t pokemon){
-  pokemon_t* nuevo_vector_pokemon;
   (acuario->cantidad_pokemon)++;
-  nuevo_vector_pokemon = realloc(acuario->pokemon, sizeof(pokemon_t) * (size_t)acuario->cantidad_pokemon);
-  
+  pokemon_t* nuevo_vector_pokemon = realloc(acuario->pokemon, sizeof(pokemon_t) * (size_t)acuario->cantidad_pokemon);
   if(nuevo_vector_pokemon == NULL){
     (acuario->cantidad_pokemon)--;
     return ERROR;
@@ -53,6 +51,8 @@ int agregar_pokemon_a_acuario(acuario_t* acuario, pokemon_t pokemon){
 int sacar_pokemon_de_arrecife(arrecife_t* arrecife, int i){
   pokemon_t pokemon_aux = *(arrecife->pokemon + arrecife->cantidad_pokemon - 1);
   (arrecife->cantidad_pokemon)--;
+  if(arrecife->cantidad_pokemon == 0)
+    return SIN_ERROR;
   pokemon_t* nuevo_vector_pokemon = realloc(arrecife->pokemon, sizeof(pokemon_t) * (size_t)arrecife->cantidad_pokemon);
   if(nuevo_vector_pokemon == NULL){
     (arrecife->cantidad_pokemon)++;
@@ -112,13 +112,15 @@ acuario_t* crear_acuario(){
 
 
 int trasladar_pokemon(arrecife_t* arrecife, acuario_t* acuario, bool (*seleccionar_pokemon) (pokemon_t*), int cant_seleccion){
+  if (cant_seleccion <= 0)
+    return SIN_ERROR;
   int i = 0;
   int encontrados = 0;
   bool suficientes = false;
   while(i < arrecife->cantidad_pokemon && !suficientes){
     if((*seleccionar_pokemon)((arrecife->pokemon)+i)){
       encontrados++;
-      if(encontrados > cant_seleccion)
+      if(encontrados >= cant_seleccion)
         suficientes = true;
     }
     i++;
@@ -179,7 +181,8 @@ void liberar_arrecife(arrecife_t* arrecife){
 }
 
 void liberar_acuario(acuario_t* acuario){
-  free((*acuario).pokemon);
+  if(acuario->cantidad_pokemon > 0)
+    free((*acuario).pokemon);
   free(acuario);
 }
 

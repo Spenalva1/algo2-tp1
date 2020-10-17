@@ -1,8 +1,8 @@
 #include "evento_pesca.h"
 
-#include <stdio.h> // CAPAZ SOBRA
-#include <stdlib.h> // CAPAZ SOBRA
-#include <string.h> // CAPAZ SOBRA
+#include <stdio.h> 
+#include <stdlib.h> 
+#include <string.h> 
 
 #define MAGIKARP "Magikarp"
 #define VIOLETA "violeta"
@@ -11,6 +11,25 @@
 #define SIN_ERROR 0
 #define PESO_DIVISOR 75
 #define VELOCIDAD_DIVISOR 60
+#define MAX_RUTA 100
+#define TXT ".txt"
+
+/* 
+*   Devuelve TRUE si el valor recibido contiene la ruta de un archivo .txt
+*   En caso contrario imprime en pantalla que el archivo no cumple la condicion y retorna FALSE
+*/
+bool es_txt_valido(char ruta[MAX_RUTA]){
+    if(strcmp(ruta+strlen(ruta)-4, TXT)==0){
+        if(strlen(ruta) > 4){
+            return true;
+        }else{
+            printf("Debe ingresar al menos un caracter además de la terminación '.txt'.\n");
+        }
+    }else{
+        printf("Debe ingresar un nombre de archivo terminado en '.txt'.\n");
+    }
+    return false;
+}
 
 /*
 *   devuelve TRUE si la especie del pokemon recibido es igual a MAGIKARP
@@ -81,6 +100,9 @@ void mostrar_resultado_de_traslado(int resultado, int numero_de_traslado){
 
 int main(int argc, char *argv[]){
 
+    if(!es_txt_valido(argv[argc-1]))
+        return ERROR;
+
     arrecife_t* arrecife = crear_arrecife(argv[argc-1]);
     if(arrecife == NULL){
         return ERROR;
@@ -92,7 +114,7 @@ int main(int argc, char *argv[]){
         return ERROR;
     }
 
-    mostrar_resultado_de_traslado(trasladar_pokemon(arrecife, acuario, &es_magikarp, 1), 1);
+    mostrar_resultado_de_traslado(trasladar_pokemon(arrecife, acuario, &es_magikarp, 0), 1);
     censar_arrecife(arrecife, &mostrar_pokemon);
 
     mostrar_resultado_de_traslado(trasladar_pokemon(arrecife, acuario, &es_veloz, 1), 2);
@@ -111,4 +133,5 @@ int main(int argc, char *argv[]){
 
     liberar_arrecife(arrecife);
     liberar_acuario(acuario);
+    return SIN_ERROR;
 }

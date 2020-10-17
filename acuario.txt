@@ -1,4 +1,0 @@
-Politoed;70;33;violeta
-Squirtle;43;75;azul
-Slowpoke;15;76;rosa
-Seaking;68;39;rojo
