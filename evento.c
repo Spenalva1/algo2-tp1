@@ -72,17 +72,38 @@ bool nombre_empieza_con_S(pokemon_t* pokemon){
 }
 
 /*
+*   imprime todos los datos del pokemon recibido en pantalla dejando un salto de linea al final
+*/
+void mostrar_pokemon_salto_de_linea(pokemon_t* pokemon){
+    printf("\tEspecie: %s - Velocidad: %d - Peso: %d - Color: %s\n", pokemon->especie, pokemon->velocidad, pokemon->peso, pokemon->color);
+}
+
+/*
 *   imprime todos los datos del pokemon recibido en pantalla
 */
 void mostrar_pokemon(pokemon_t* pokemon){
-    printf("\tEspecie: %s - Velocidad: %d - Peso: %d - Color: %s\n", pokemon->especie, pokemon->velocidad, pokemon->peso, pokemon->color);
+    printf("Especie: %s - Velocidad: %d - Peso: %d - Color: %s // ", pokemon->especie, pokemon->velocidad, pokemon->peso, pokemon->color);
+}
+
+/*
+*   imprime el nombre del pokemon recibido en pantalla dejando un salto de linea al final
+*/
+void mostrar_nombre_pokemon_salto_de_linea(pokemon_t* pokemon){
+    printf("\t- %s\n", pokemon->especie);
 }
 
 /*
 *   imprime el nombre del pokemon recibido en pantalla
 */
 void mostrar_nombre_pokemon(pokemon_t* pokemon){
-    printf("\t- %s\n", pokemon->especie);
+    printf("%s // ", pokemon->especie);
+}
+
+/*
+*   imprime todos los datos del pokemon recibido en pantalla tomando una linea por dato
+*/
+void mostrar_pokemon_detallado(pokemon_t* pokemon){
+    printf("%s:\n\tVelocidad: %d\n\tPeso: %d\n\tColor: %s\n", pokemon->especie, pokemon->velocidad, pokemon->peso, pokemon->color);
 }
 
 /*
@@ -115,19 +136,19 @@ int main(int argc, char *argv[]){
     }
 
     mostrar_resultado_de_traslado(trasladar_pokemon(arrecife, acuario, &es_magikarp, 0), 1);
-    censar_arrecife(arrecife, &mostrar_pokemon);
+    censar_arrecife(arrecife, &mostrar_nombre_pokemon);
 
     mostrar_resultado_de_traslado(trasladar_pokemon(arrecife, acuario, &es_veloz, 1), 2);
-    censar_arrecife(arrecife, &mostrar_pokemon);
+    censar_arrecife(arrecife, &mostrar_nombre_pokemon_salto_de_linea);
 
     mostrar_resultado_de_traslado(trasladar_pokemon(arrecife, acuario, &es_pesado, 1), 3);
     censar_arrecife(arrecife, &mostrar_pokemon);
 
     mostrar_resultado_de_traslado(trasladar_pokemon(arrecife, acuario, &es_violeta, 5), 4);
-    censar_arrecife(arrecife, &mostrar_pokemon);
+    censar_arrecife(arrecife, &mostrar_pokemon_salto_de_linea);
 
     mostrar_resultado_de_traslado(trasladar_pokemon(arrecife, acuario, &nombre_empieza_con_S, 2), 5);
-    censar_arrecife(arrecife, &mostrar_pokemon);
+    censar_arrecife(arrecife, &mostrar_pokemon_detallado);
 
     guardar_datos_acuario(acuario, RUTA_ACUARIO);
 

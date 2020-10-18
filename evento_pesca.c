@@ -10,6 +10,27 @@
 #define ERROR -1
 
 /*
+* cuenta cuandos pokemones del arrecife recibido cumplen con la condicion seleccionar_pokemon.
+* devuelve TRUE si la cantidad que cumple es mayor o igual a cant_seleccion
+* devuelve FALSE en caso contrario
+*/
+bool hay_pokemones_suficientes (arrecife_t* arrecife, bool (*seleccionar_pokemon) (pokemon_t*), int cant_seleccion){
+  int encontrados = 0;
+  bool suficientes = false;
+  int i = 0;
+
+  while(i < arrecife->cantidad_pokemon && !suficientes){
+    if((*seleccionar_pokemon)((arrecife->pokemon)+i)){
+      encontrados++;
+      if(encontrados >= cant_seleccion)
+        suficientes = true;
+    }
+    i++;
+  }
+  return suficientes;
+}
+
+/*
 * agrega el pokemon recibido por parametro en la direccion recibida en el puntero arrecife
 * retorna SIN_ERROR en caso de exito y ERROR en caso contrario.
 */
@@ -110,24 +131,6 @@ acuario_t* crear_acuario(){
   return acuario;
 }
 
-bool hay_pokemones_suficientes (arrecife_t* arrecife, bool (*seleccionar_pokemon) (pokemon_t*), int cant_seleccion){
-  int encontrados = 0;
-  bool suficientes = false;
-  int i = 0;
-
-  while(i < arrecife->cantidad_pokemon && !suficientes){
-    if((*seleccionar_pokemon)((arrecife->pokemon)+i)){
-      encontrados++;
-      if(encontrados >= cant_seleccion)
-        suficientes = true;
-    }
-    i++;
-  }
-
-  return suficientes;
-}
-
-
 int trasladar_pokemon(arrecife_t* arrecife, acuario_t* acuario, bool (*seleccionar_pokemon) (pokemon_t*), int cant_seleccion){
   if (cant_seleccion <= 0)
     return SIN_ERROR;
@@ -166,7 +169,7 @@ void censar_arrecife(arrecife_t* arrecife, void (*mostrar_pokemon)(pokemon_t*)){
   for(int i = 0; i < arrecife->cantidad_pokemon; i++){
     (*mostrar_pokemon)((arrecife->pokemon)+i);
   }
-  printf("------------------------------------------------------------------------------------------\n");
+  printf("\n------------------------------------------------------------------------------------------\n");
 }
 
 int guardar_datos_acuario(acuario_t* acuario, const char* nombre_archivo){
