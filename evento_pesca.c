@@ -110,13 +110,11 @@ acuario_t* crear_acuario(){
   return acuario;
 }
 
-
-int trasladar_pokemon(arrecife_t* arrecife, acuario_t* acuario, bool (*seleccionar_pokemon) (pokemon_t*), int cant_seleccion){
-  if (cant_seleccion <= 0)
-    return SIN_ERROR;
-  int i = 0;
+bool hay_pokemones_suficientes (arrecife_t* arrecife, bool (*seleccionar_pokemon) (pokemon_t*), int cant_seleccion){
   int encontrados = 0;
   bool suficientes = false;
+  int i = 0;
+
   while(i < arrecife->cantidad_pokemon && !suficientes){
     if((*seleccionar_pokemon)((arrecife->pokemon)+i)){
       encontrados++;
@@ -126,14 +124,23 @@ int trasladar_pokemon(arrecife_t* arrecife, acuario_t* acuario, bool (*seleccion
     i++;
   }
 
-  if(!suficientes)
+  return suficientes;
+}
+
+
+int trasladar_pokemon(arrecife_t* arrecife, acuario_t* acuario, bool (*seleccionar_pokemon) (pokemon_t*), int cant_seleccion){
+  if (cant_seleccion <= 0)
+    return SIN_ERROR;
+
+  if(!hay_pokemones_suficientes(arrecife, seleccionar_pokemon, cant_seleccion))
     return ERROR;
 
-  encontrados = 0;
-  i = 0;
+  int encontrados = 0;
+  int i = 0;
   bool error = false;
   while(i < arrecife->cantidad_pokemon && !error && encontrados < cant_seleccion){
     if((*seleccionar_pokemon)((arrecife->pokemon)+i)){
+      
       encontrados++;
 
       if(agregar_pokemon_a_acuario(acuario, arrecife->pokemon[i]) == ERROR)
